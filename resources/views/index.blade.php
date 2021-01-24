@@ -179,7 +179,25 @@
                         </div>
                     </div>
                 </div>
-                <div class="row d-flex justify-content-center">
+                <div class="row d-flex justify-content-between align-items-center control-panel">
+                    <div class="control-panel-shops">
+                        <div class="control-panel-shops-checkbox">
+                            <input type="checkbox" id="shop-novus" name="selected-shops" value="novus">
+                            <label for="shop-novus">Novus</label>
+                        </div>
+                        <div class="control-panel-shops-checkbox">
+                            <input type="checkbox" id="shop-eco" name="selected-shops" value="eco">
+                            <label for="shop-eco">Eco market</label>
+                        </div>
+                        <div class="control-panel-shops-checkbox">
+                            <input type="checkbox" id="shop-metro" name="selected-shops" value="metro">
+                            <label for="shop-metro">Metro</label>
+                        </div>
+                    </div>
+                    <div class="control-panel-search flex-grow-1 d-flex justify-content-center align-items-stretch">
+                        <input type="text" class="control-panel-search__text flex-grow-1">
+                        <div class="cta control-panel-search__submit">Search</div>
+                    </div>
                     <div class="cta price_button" id="compare">
                         Compare prices
                     </div>
