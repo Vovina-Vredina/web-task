@@ -202,7 +202,7 @@
                         Compare prices
                     </div>
                 </div>
-                <table class="table table-bordered hide">
+                <table class="table table-bordered products-table hide">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
