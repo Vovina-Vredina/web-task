@@ -233,11 +233,15 @@ li {
 }
 
 .control-panel {
-    margin-bottom: 50px;
+    margin: 0 50px 50px;
 }
 
-.control-panel-search {
-    margin: 0 50px;
+.control-panel-shops {
+    margin-right: 50px;
+}
+
+.price-compare__results {
+    margin-bottom: 50px;
 }
 
 .control-panel-search__text {

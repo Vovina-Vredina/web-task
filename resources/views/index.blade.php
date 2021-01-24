@@ -180,8 +180,8 @@
                     </div>
                 </div>
 
-                <div class="row d-flex justify-content-between align-items-center control-panel">
-                    <form action="{{route('compare-price')}}" method="get">
+                <div class="row d-flex justify-content-between align-items-center control-panel" id="compare">
+                    <div class="control-panel-shops">
                         <div class="control-panel-shops-checkbox">
                             <input type="checkbox" id="shop-novus" name="selected-novus" value="novus">
                             <label for="shop-novus">Novus</label>
@@ -194,17 +194,15 @@
                             <input type="checkbox" id="shop-metro" name="selected-metro" value="metro">
                             <label for="shop-metro">Metro</label>
                         </div>
-                        <div class="control-panel-search flex-grow-1 d-flex justify-content-center align-items-stretch">
-                            <input type="text" name="search" class="control-panel-search__text flex-grow-1">
-                            <span class="form-group-prepend">
-                                <button type="submit" class="btn btn-primary" >Search</button>
-                            </span> 
-                        </div>
-                    </form>
+                    </div>
+                    <div class="control-panel-search flex-grow-1 d-flex justify-content-center align-items-stretch">
+                        <input type="text" class="control-panel-search__text flex-grow-1" placeholder="Name of product you want to compare price for">
+                        <div class="cta control-panel-search__submit">Compare prices</div>
+                    </div>
                 </div>
+                <div class="row price-compare__results"></div>
             </div>
         </section>
-
         <footer id="footer" class="footer">
             <div class="container">
                 <div class="row">
