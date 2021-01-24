@@ -50,9 +50,7 @@ searchBtn.onclick = async function () {
 
     const searchParams = new URLSearchParams([...shops, ["search", product]]);
 
-    const response = await fetch(
-        `/web-task/public/search?${searchParams.toString()}`
-    );
+    const response = await fetch(`/search?${searchParams.toString()}`);
 
     const products = response.ok ? (await response.json()).data : [];
 
