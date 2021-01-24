@@ -179,52 +179,30 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="row d-flex justify-content-between align-items-center control-panel">
-                    <div class="control-panel-shops">
+                    <form action="{{route('compare-price')}}" method="get">
                         <div class="control-panel-shops-checkbox">
-                            <input type="checkbox" id="shop-novus" name="selected-shops" value="novus">
+                            <input type="checkbox" id="shop-novus" name="selected-novus" value="novus">
                             <label for="shop-novus">Novus</label>
                         </div>
                         <div class="control-panel-shops-checkbox">
-                            <input type="checkbox" id="shop-eco" name="selected-shops" value="eco">
+                            <input type="checkbox" id="shop-eco" name="selected-eco" value="eco">
                             <label for="shop-eco">Eco market</label>
                         </div>
                         <div class="control-panel-shops-checkbox">
-                            <input type="checkbox" id="shop-metro" name="selected-shops" value="metro">
+                            <input type="checkbox" id="shop-metro" name="selected-metro" value="metro">
                             <label for="shop-metro">Metro</label>
                         </div>
-                    </div>
-                    <div class="control-panel-search flex-grow-1 d-flex justify-content-center align-items-stretch">
-                        <input type="text" class="control-panel-search__text flex-grow-1">
-                        <div class="cta control-panel-search__submit">Search</div>
-                    </div>
-                    <div class="cta price_button" id="compare">
-                        Compare prices
-                    </div>
+                        <div class="control-panel-search flex-grow-1 d-flex justify-content-center align-items-stretch">
+                            <input type="text" name="search" class="control-panel-search__text flex-grow-1">
+                            <span class="form-group-prepend">
+                                <button type="submit" class="btn btn-primary" >Search</button>
+                            </span> 
+                        </div>
+                    </form>
                 </div>
-                <table class="table table-bordered hide">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Store</th>
-                            <th scope="col">EAN</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Price, UAH</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($data AS $item)
-                        <tr>
-                            <th scope="col">{{$loop->index+1}}</th>
-                            <th scope="col">{{$item['shop']}}</th>
-                            <th scope="col">{{$item['ean']}}</th>
-                            <th scope="col">{{$item['title']}}</th>
-                            <th scope="col">{{number_format($item['price'])}}</th>
-                        </tr>
-                        @endforeach
-                        </thead>
-                    </tbody>
-                </table>
+
             </div>
         </section>
 

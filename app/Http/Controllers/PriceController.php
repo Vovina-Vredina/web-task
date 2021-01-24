@@ -4,32 +4,61 @@ namespace App\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use GuzzleHttp\Client;
+use Illuminate\Http\Request;
 
 class PriceController extends Controller {
 
-    private const NOVUS_API = 'https://stores-api.zakaz.ua/stores/48201070/products/search/?q=%D0%B3%D1%80%D0%B5%D1%87%D0%B0%D0%BD%D0%B0%20%D0%BA%D1%80%D1%83%D0%BF%D0%B0';
-    private const ECO_API = 'https://stores-api.zakaz.ua/stores/48280214/products/search/?q=%D0%BA%D1%80%D1%83%D0%BF%D0%B0%20%D0%B3%D1%80%D0%B5%D1%87%D0%B0%D0%BD%D0%B0';
-    private const METRO_API = 'https://stores-api.zakaz.ua/stores/48215611/products/search/?q=%D0%BA%D1%80%D1%83%D0%BF%D0%B0%20%D0%B3%D1%80%D0%B5%D1%87%D0%B0%D0%BD%D0%B0';
-    private const STORES_DATA = [
-        'Novus' => self::NOVUS_API,
-        'Eco' => self::ECO_API,
-        'Metro' => self::METRO_API,
-    ];
+    private const STORES_API = 'https://stores-api.zakaz.ua/stores/';
+    private const NOVUS_ID = '48201070';
+    private const ECO_ID = '48280214';
+    private const METRO_ID = '48215611';
 
-    public function index() {
-        $data = $this->_getSortPrice();
+    public function search(Request $request) {
+        $data = [];
 
-        return view('index')->with([
+        $selectedNovus = $request->input('selected-novus');
+        $selectedEco = $request->input('selected-eco');
+        $selectedMetro = $request->input('selected-metro');
+
+        $search = $request->input('search');
+
+        $stores = [
+            'Novus' => [
+                'id' => self::NOVUS_ID,
+                'checked' => $this->_isChecked($selectedNovus, 'novus')],
+            'Eco' => [
+                'id' => self::ECO_ID,
+                'checked' => $this->_isChecked($selectedEco, 'eco')],
+            'Metro' => [
+                'id' => self::METRO_ID,
+                'checked' => $this->_isChecked($selectedMetro, 'metro')],
+        ];
+
+        if ($search !== null) {
+            $data = $this->_getSortPrice($stores, $search);
+        }
+
+        $status = false;
+
+        if (!empty($data)) {
+            $status = true;
+        }
+        return response()->json([
+                    'success' => $status,
                     'data' => $data,
         ]);
     }
 
-    private function _getSortPrice() {
+    private function _getSortPrice($stores, $search) {
         $data = [];
 
-        foreach (self::STORES_DATA AS $name => $api) {
-            $client = new Client();
+        $client = new Client();
+        foreach ($stores AS $name => $store) {
+            if ($store['checked'] == false) {
+                continue;
+            }
 
+            $api = self::STORES_API . $store['id'] . '/products/search/?q=' . $search;
             $request = $client->get($api, ['http_errors' => false,
                 'connection_timeout' => 10
             ]);
@@ -45,10 +74,19 @@ class PriceController extends Controller {
                 ];
             }
         }
-        $volume = array_column($data, 'price');
-        array_multisort($volume, SORT_ASC, $data);
+        $price = array_column($data, 'price');
+        array_multisort($price, SORT_ASC, $data);
 
         return $data;
+    }
+
+    private function _isChecked($selectedStore, $value) {
+        if (!empty($selectedStore)) {
+            if ($selectedStore == $value) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
