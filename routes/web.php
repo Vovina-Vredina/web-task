@@ -13,8 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/price', 'PriceController@index')->name('compare-price');
+Route::get('/', 'PriceController@index')->name('compare-price');
