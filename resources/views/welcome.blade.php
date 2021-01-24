@@ -15,12 +15,17 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-3">
-						<img src="{{ URL::asset('assets/img/logo.png') }}" class="logo" alt="Luxury buckwheat">
+						<img src="{{ URL::asset('assets/img/logo2.png') }}" class="logo" alt="Luxury buckwheat">
 					</div>
 					<div class="col-lg-5">
 						<nav>
 							<ul class="menu d-flex justify-content-between">
 								<li class="menu_item">
+									<a href="#header" class="active">
+										MAIN
+									</a>
+								</li>
+								<li class="menu_item ">
 									<a href="#about">
 										ABOUT BUCKWHEAT
 									</a>
@@ -39,9 +44,9 @@
 						</nav>
 					</div>
 					<div class="col-lg-4">
-						<button class="book cta d-flex justify-content-center float-right">
-							<span class="book_icon"> </span>
-							Book your table
+						<button href="#compare" class="menu_button cta d-flex justify-content-center float-right">
+							<span class="grn_icon"> </span>
+							COMPARE PRICES
 						</button>
 					</div>
 				</div>
@@ -57,7 +62,7 @@
 								From <span>buckwheat</span> and millet <br>and porridge and paste
 							</h1>
 							<p class="title_desc">
-								(UA, 1955, 104; 1963,251; IMFE, 1-5, 461, 123).
+								© Ukrainian proverb
 							</p>
 						</div>
 					</div>
@@ -112,9 +117,9 @@
 			<div class="row">
 				<div class="col-lg-4">
 					<div class="food">
-						<img src="{{ URL::asset('assets/img/dish.jpg') }}" alt="shop1" class="food_img img-fluid">
+						<img src="{{ URL::asset('assets/img/novus2.jpg') }}" alt="shop1" class="food_img img-fluid">
 						<h3 class="food_title">
-							Shop One
+							Novus
 						</h3>
 						<p class="food_desc">
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit.  
@@ -134,9 +139,9 @@
 				</div>
 				<div class="col-lg-4">
 					<div class="food">
-						<img src="{{ URL::asset('assets/img/dish.jpg') }}" alt="shop2" class="food_img img-fluid">
+						<img src="{{ URL::asset('assets/img/eco2.jpg') }}" alt="shop2" class="food_img img-fluid">
 						<h3 class="food_title">
-							Shop Two
+							Eco Market
 						</h3>
 						<p class="food_desc">
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit.  
@@ -156,9 +161,9 @@
 				</div>
 				<div class="col-lg-4">
 					<div class="food">
-						<img src="{{ URL::asset('assets/img/dish.jpg') }}" alt="shop3" class="food_img img-fluid">
+						<img src="{{ URL::asset('assets/img/metro2.jpg') }}" alt="shop3" class="food_img img-fluid">
 						<h3 class="food_title">
-							Shop Three
+							Metro
 						</h3>
 						<p class="food_desc">
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
@@ -175,10 +180,48 @@
 				</div>
 			</div>
 			<div class="row d-flex justify-content-center">
-				<a href="#" class="cta history_button price_button">
+				<div class="cta price_button" id="compare">
 					Compare prices
-				</a>
+				</div>
+				<div class="cta price_button">
+					Compare shops
+				</div>
 			</div>
+			<table class="table table-bordered hide">
+			  	<thead>
+			    	<tr>
+				        <th scope="col">#</th>
+				        <th scope="col">Имя</th>
+				        <th scope="col">Фамилия</th>
+				        <th scope="col">Username</th>
+			    	</tr>
+			  	</thead>
+			  	<tbody>
+			    	<tr>
+				        <th scope="row">1</th>
+				        <td>Mark</td>
+				        <td>Otto</td>
+				        <td>@mdo</td>
+			    	</tr>
+			    	<tr>
+				        <th scope="row">2</th>
+				        <td>Mark</td>
+				        <td>Otto</td>
+				        <td>@TwBootstrap</td>
+			    	</tr>
+			    	<tr>
+					    <th scope="row">3</th>
+					    <td>Jacob</td>
+					    <td>Thornton</td>
+					    <td>@fat</td>
+			    	</tr>
+			    	<tr>
+				      	<th scope="row">4</th>
+				      	<td colspan="2">Larry the Bird</td>
+				      	<td>@twitter</td>
+			    	</tr>
+			  	</tbody>
+			</table>
 		</div>
 	</section>
 
