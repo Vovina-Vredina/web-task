@@ -183,9 +183,6 @@
 				<div class="cta price_button" id="compare">
 					Compare prices
 				</div>
-				<div class="cta price_button">
-					Compare shops
-				</div>
 			</div>
 			<table class="table table-bordered hide">
 			  	<thead>
