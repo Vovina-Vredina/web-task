@@ -81,11 +81,10 @@ class PriceController extends Controller {
     }
 
     private function _isChecked($selectedStore, $value) {
-        if (!empty($selectedStore)) {
-            if ($selectedStore == $value) {
-                return true;
-            }
+        if (!empty($selectedStore) && $selectedStore == $value) {
+            return true;
         }
+
         return false;
     }
 
