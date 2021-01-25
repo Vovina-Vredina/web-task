@@ -48,42 +48,86 @@ searchBtn.onclick = async function () {
         return;
     }
 
-    const searchParams = new URLSearchParams([...shops, ["product", product]]);
+    const searchParams = new URLSearchParams([...shops, ["search", product]]);
 
     const response = await fetch(`/search?${searchParams.toString()}`);
 
-    const products = response.ok ? await response.json() : [];
+    const products = response.ok ? (await response.json()).data : [];
 
-    updateProductsTable(products);
+    printProductsTable(products);
 };
 
-function updateProductsTable(productsData) {
+function printProductsTable(productsData) {
     const columns = [
-        { name: "shop" },
-        { name: "ean" },
-        { name: "title" },
-        { name: "price", mapper: (value) => (value / 100).toFixed(2) },
+        { name: "id", header: "#" },
+        { name: "shop", header: "Store" },
+        { name: "ean", header: "EAN" },
+        { name: "title", header: "Title" },
+        {
+            name: "price",
+            header: "Price, UAH",
+            mapper: (value) => (value / 100).toFixed(2),
+        },
     ];
-    const table = document.querySelector(".products-table > tbody");
 
-    removeChildren(table);
+    const rowsData = productsData.map((product, i) => ({
+        ...product,
+        id: i + 1,
+    }));
 
-    for (let i = 0; i < productsData.length; i++) {
-        const row = createRow(i + 1, productsData[i], columns);
-        table.appendChild(row);
-    }
+    removePrevResults();
 
-    if (productsData.length === 0) {
-        const row = createNotFoundRow(columns.length + 1);
-        table.appendChild(row);
+    if (rowsData.length) {
+        printTable(rowsData, columns);
+    } else {
+        printNotFoundLabel();
     }
 }
 
-function createRow(id, rowData, columnsInOrder) {
+function printTable(tableData, columns) {
+    const tableContainer = document.getElementsByClassName(
+        "price-compare__results"
+    )[0];
+    const table = document.createElement("table");
+    table.className = "table table-bordered products-table";
+
+    const header = createTableHeader(columns);
+    table.appendChild(header);
+
+    const body = createTableBody(tableData, columns);
+    table.appendChild(body);
+
+    tableContainer.appendChild(table);
+}
+
+function createTableHeader(columns) {
+    const tableHeader = document.createElement("thead");
+
     const rowElement = document.createElement("tr");
 
-    const cellElement = createCell(id);
-    rowElement.appendChild(cellElement);
+    for (const column of columns) {
+        const cellElement = createCell(column.header);
+        rowElement.appendChild(cellElement);
+    }
+
+    tableHeader.appendChild(rowElement);
+
+    return tableHeader;
+}
+
+function createTableBody(tableData, columns) {
+    const tableBody = document.createElement("tbody");
+
+    for (let i = 0; i < tableData.length; i++) {
+        const row = createRow(tableData[i], columns);
+        tableBody.appendChild(row);
+    }
+
+    return tableBody;
+}
+
+function createRow(rowData, columnsInOrder) {
+    const rowElement = document.createElement("tr");
 
     for (const column of columnsInOrder) {
         const cellData = column.mapper
@@ -109,17 +153,24 @@ function createCell(cellText, colSpan = 1) {
     return cellElement;
 }
 
-function removeChildren(parent) {
-    while (parent.firstChild) {
-        parent.removeChild(parent.lastChild);
+function removePrevResults() {
+    const tableContainer = document.getElementsByClassName(
+        "price-compare__results"
+    )[0];
+    if (tableContainer.firstChild) {
+        tableContainer.removeChild(tableContainer.firstChild);
     }
 }
 
-function createNotFoundRow(columnsCount) {
-    const rowElement = document.createElement("tr");
+function printNotFoundLabel() {
+    const tableContainer = document.getElementsByClassName(
+        "price-compare__results"
+    )[0];
 
-    const cellElement = createCell("No products were found", columnsCount);
-    rowElement.appendChild(cellElement);
+    const label = document.createElement("p");
+    label.style["text-align"] = "center";
+    label.style["width"] = "100%";
+    label.textContent = "No products were found";
 
-    return rowElement;
+    tableContainer.appendChild(label);
 }
